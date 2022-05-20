@@ -107,8 +107,9 @@ function getTokenPopup(request) {
     * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-common/docs/Accounts.md
     */
     request.account = myMSALObj.getAccountByHomeId(accountId);
-
-
+    console.log('myMSALObj.getAccountByHomeId(accountId)');
+    console.log(request);
+    console.log(request.accessToken);
     /**
      * 
      */
@@ -127,6 +128,7 @@ function getTokenPopup(request) {
                 // fallback to interaction when silent call fails
                 return myMSALObj.acquireTokenPopup(request)
                     .then(response => {
+                        console.log('myMSALObj.acquireTokenPopup(request)');
                         console.log(response);
                         return response;
                     }).catch(error => {
@@ -143,6 +145,7 @@ function passTokenToApi() {
         .then(response => {
             if (response) {
                 console.log("access_token acquired at: " + new Date().toString());
+                console.log(response.accessToken);
                 try {
                     callApi(apiConfig.webApi, response.accessToken);
                 } catch (error) {
