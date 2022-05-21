@@ -1,27 +1,28 @@
 function callApi(endpoint, token) {
-    
-    const headers = new Headers();
-    const bearer = `Bearer ${token}`;
-  
-    headers.append("Authorization", bearer);
-  
-    const options = {
-        method: "GET",
-        headers: headers
-      };
-  
-    logMessage('Calling web API...');
-    
-    fetch(endpoint, options)
-      .then(response => response.json())
-      .then(response => {
+  const headers = new Headers();
+  const bearer = `Bearer ${token}`;
 
-        if (response) {
-          logMessage('Web API responded: ' + response.name);
-        }
-        
-        return response;
-      }).catch(error => {
-        console.error(error);
-      });
-  }
+  headers.append("Authorization", bearer);
+
+  const options = {
+    method: "GET",
+    headers: headers,
+  };
+
+  logMessage("Calling web API...");
+
+  fetch(endpoint, options)
+    .then((response) => response.json())
+    .then((response) => {
+      if (response) {
+        logMessage(
+          `My name is: ${response.name} I am from ${response.country}\n working as ${response.jobTitle}`
+        );
+      }
+
+      return response;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
